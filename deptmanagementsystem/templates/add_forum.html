@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Forum</title>
+    <style>
+        body {
+            background-color: #f0f8e8; /* light green background */
+            font-family: Arial, sans-serif; /* set font family */
+            color: #333; /* set text color */
+        }
+        h2 {
+            text-align: center;
+            color: #006400; /* dark green heading */
+        }
+        .form-container {
+            background-color: #fff; /* white background for form */
+            border: 1px solid #0064004c; /* dark green border */
+            padding: 20px; /* add some padding */
+            border-radius: 10px; /* round corners */
+            width: 80vw;/* set form width */
+            margin: 0 auto; /* center the form */
+        }
+        label {
+            display: block; /* display labels as block elements */
+            margin-bottom: 10px; /* add space between labels and inputs */
+            color: #006400; /* dark green label text */
+        }
+        input[type="text"] {
+            width: calc(100% - 22px); /* make input fields full width */
+            padding: 10px; /* add some padding */
+            margin-bottom: 15px; /* add space between inputs */
+            border: 1px solid #ccc; /* light gray border */
+            border-radius: 5px; /* round corners */
+        }
+        button[type="submit"] {
+            background-color: #006400; /* dark green submit button */
+            color: #fff; /* white text color */
+            padding: 10px 20px; /* add padding */
+            border: none; /* remove border */
+            border-radius: 5px; /* round corners */
+            cursor: pointer; /* change cursor on hover */
+        }
+        button[type="submit"]:hover {
+            background-color: #004d00; /* darker green on hover */
+        }
+
+        textarea {
+            width: calc(100% - 22px); /* make textarea full width */
+            padding: 10px; /* add some padding */
+            margin-bottom: 15px; /* add space between inputs */
+            border: 1px solid #ccc; /* light gray border */
+            border-radius: 5px; /* round corners */
+            /* height: 20px; 
+            resize: vertical;
+            overflow-y: hidden; */
+        } 
+    </style>
+</head>
+<body>
+    <h2>Add Forum</h2>
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            <label for="id_header">Header:</label>
+            {{ form.header }}
+            <label for="id_content" oninput="autoResize(this)">Description:</label>
+            {{ form.content }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+  
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!-- forum_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8f0; /* Light green background */
+            color: #333; /* Dark gray text color */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007f00; /* Dark green heading */
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007f00; /* Dark green link color */
+            display: block;
+            padding: 10px;
+            background-color: #dfeeeb; /* Light green background for forum titles */
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #cde7c4; /* Darker green background on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Forum List</h1>
+        <ul>
+            {% for forum in forums %}
+            <li><a href="{% url 'forum-details' forum.id %}">{{ forum.header }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

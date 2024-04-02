@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Registration Forum</title>
+    <style>body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #FFFFFF; /* White background */
+        color: #2E7D32; /* Dark green text */
+    }
+    
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #81C784; /* Medium green container */
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1, h2 {
+        color: #FFFFFF; /* White header text */
+        text-align: center;
+    }
+    
+    #complainForm, #complaintsList {
+        margin-top: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+    
+    textarea {
+        width: calc(100% - 16px);
+        padding: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #2E7D32; /* Dark green border */
+        border-radius: 4px;
+    }
+    
+    button {
+        background-color: #4CAF50; /* Green button */
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+    
+    #complaints {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.complaint {
+    background-color: #A5D6A7; /* Light green complaint box */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-around; /* Apply space-around to distribute contents */
+    align-items: center; /* Center items vertically */
+}
+
+    
+    .timestamp {
+        font-size: 12px;
+        color: #2E7D32; /* Dark green timestamp */
+    }
+    
+    .remove-button {
+        background-color: #f44336; /* Red remove button */
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    
+    .remove-button:hover {
+        background-color: #d32f2f; /* Darker red on hover */
+    }
+    </style>>
+</head>
+<body>
+    <div class="container">
+        <h1>Complaint Registration Forum</h1>
+
+        <div id="complainForm">
+            <label for="complainText">Register Complaint:</label>
+            <textarea id="complainText" placeholder="Type your complaint here..." required></textarea>
+            <button onclick="registerComplaint()">Register Complaint</button>
+        </div>
+
+        <div id="complaintsList">
+            <h2>Registered Complaints</h2>
+            <ul id="complaints">
+                <!-- Complaints will be added dynamically using JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function registerComplaint() {
+    const complainText = document.getElementById('complainText').value;
+    
+    if (complainText.trim() !== '') {
+        const timestamp = new Date().toLocaleString();
+        const complaint = {
+            text: complainText,
+            timestamp: timestamp
+        };
+
+        addComplaint(complaint);
+        clearComplaintForm();
+    } else {
+        alert('Please enter a valid complaint.');
+    }
+}
+
+function addComplaint(complaint) {
+    const complaintsList = document.getElementById('complaints');
+    const li = document.createElement('li');
+    li.className = 'complaint';
+
+    const timestamp = document.createElement('span');
+    timestamp.className = 'timestamp';
+    timestamp.textContent = complaint.timestamp;
+
+    const removeButton = document.createElement('button');
+    removeButton.className = 'remove-button';
+    removeButton.textContent = 'Remove';
+    removeButton.onclick = function() {
+        removeComplaint(li);
+    };
+
+    li.textContent = complaint.text;
+    li.appendChild(timestamp);
+    li.appendChild(removeButton);
+
+    complaintsList.appendChild(li);
+}
+
+function removeComplaint(complaintElement) {
+    const complaintsList = document.getElementById('complaints');
+    complaintsList.removeChild(complaintElement);
+}
+
+function clearComplaintForm() {
+    document.getElementById('complainText').value = '';
+}
+
+// Sample data for demonstration
+// ... (Previous code)
+
+addComplaint({ text: 'Sample complaint 1', timestamp: '2023-01-01 09:30 AM' });
+addComplaint({ text: 'Sample complaint 2', timestamp: '2023-01-02 02:45 PM' });
+addComplaint({ text: 'Sample complaint 3', timestamp: '2023-01-03 11:15 AM' });
+
+// ... (Continue from here)
+
+
+    </script>
+</body>
+</html>

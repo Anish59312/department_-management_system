@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ forum.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8f0; /* Light green background */
+            color: #333; /* Dark gray text color */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007f00; /* Dark green heading */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #007f00; /* Dark green heading */
+            margin-top: 30px;
+        }
+        p {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .comment {
+            background-color: #dfeeeb; /* Light green comment background */
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .comment p {
+            margin: 5px 0;
+        }
+          
+        #add_comment {
+            margin: auto;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+        #add_comment p {
+            color: #007f00; /* Dark green heading */
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        #add_comment form {
+            display: flex;
+            align-items: center;
+        }
+
+        #add_comment form input[type="text"] {
+            flex: 5;
+            padding: 10px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 10 0 0 10;
+        }
+        #add_comment form input[type="text"] :hover {
+            border: 1px solid #007f007a;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+    #add_comment form button {
+        flex: 1;
+        background-color: #007f00; /* Dark green button */
+        color: #fff; /* White text color */
+        border: none;
+        padding: 10px;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+
+    #add_comment form button:hover {
+        background-color: #005200; /* Darker green on hover */
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ forum.header }}</h1>
+        <p>{{ forum.content }}</p>
+        
+        <h2>Comments</h2>
+        {% for comment in forum.comments %}
+        <div class="comment">
+            <p>{{ comment }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="add_comment">
+        <p>Add your comments</p>
+        <form method="post" action="{% url 'submit-comment' forum.id %}">
+            {% csrf_token %}
+            {{ form.new_comment }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

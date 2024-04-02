@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Forum Form</title>
+</head>
+<body>
+
+<h1>Forum Details</h1>
+{% for forum in forums %}
+<h2>{{ forum.header }}</h2>
+
+<!-- Displaying comments using a for loop -->
+    {% for comment in forum.comments %}
+        <p>{{ comment }}</p>
+    {% endfor %}
+
+<br><br>
+
+{% endfor %}
+
+<h1>Forum Form</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}    
+
+    {{ form.as_p }}
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

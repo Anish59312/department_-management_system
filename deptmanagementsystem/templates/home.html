@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  nav.navbar {
+    position: fixed;
+    width: 100vw;
+    top: 0px;
+    fill-opacity: 10%;
+  }
+    body {
+      font-family: Arial, sans-serif;
+      background: #c9ffe1;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .container {
+      text-align: center;
+    }
+    
+    h1 {
+      color: #2e8b57; /* Dark green text color */
+    }
+  </style>
+
+
+<div class="container">
+  <h1 id="text" >Hello {{ student_name }}</h1>
+</div>
+{% endblock %}
