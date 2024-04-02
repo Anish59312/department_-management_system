@@ -5,7 +5,6 @@ from .forms import CommentForm, ForumForm, MarksForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import *
-
 # def registration_view(request):
 #     if request.method == 'POST':
 #         form = RegistrationForm(request.POST)
