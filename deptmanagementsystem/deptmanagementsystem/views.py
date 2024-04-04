@@ -5,6 +5,7 @@ from .forms import CommentForm, ForumForm, MarksForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import *
+from django.contrib.auth import logout
 # def registration_view(request):
 #     if request.method == 'POST':
 #         form = RegistrationForm(request.POST)
@@ -143,3 +144,8 @@ def delete_complaint(request, complaint_id):
     complaint = get_object_or_404(Complaints, pk=complaint_id)
     complaint.delete()
     return redirect('add-complaint') 
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login_view')
