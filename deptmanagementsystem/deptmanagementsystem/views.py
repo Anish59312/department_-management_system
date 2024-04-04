@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Forum, Marks, Student
+from .models import Complaints, Forum, Marks, Student
 from .forms import CommentForm, ForumForm, MarksForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -126,8 +126,20 @@ def view_student(request):
 
 def add_complaint(request):
     if request.method == 'POST':
+        print('working till here\n\n\n')
         subject = request.POST.get('subject')
         complaint_text = request.POST.get('complaintText')
-        complaint = Complaint()
+        complaint = Complaints(subject=subject, description=complaint_text)
+        complaint.save()
+        return redirect('add-complaint')
+    all_complaints = Complaints.objects.all()
+    return render(request, 'complaintforum.html', {'complaints' : all_complaints})
 
-    return render(request, 'complaintforum.html')
+def complaint_details(request, complaint_id):
+    print(complaint_id)
+    return render(request, 'complaintdetails.html')
+
+def delete_complaint(request, complaint_id):
+    complaint = get_object_or_404(Complaints, pk=complaint_id)
+    complaint.delete()
+    return redirect('add-complaint') 

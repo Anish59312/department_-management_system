@@ -1,15 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript"></script>
-</head>
-<body>
-    {% for mark in marks_details %}
-        <b>{{mark.student.name}}</b>
-        {{mark.marks}}
-        <br>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<title>Marks Details</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8f7; /* Light green background */
+        color: #2e8b57; /* Dark green text */
+        margin: 0;
+        padding: 20px;
+    }
+    
+    h1 {
+        color: #008000; /* Dark green title */
+        text-align: center;
+    }
+    
+    .mark-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .mark-item {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #d3e0dc; /* Lighter green item background */
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .student-name {
+        font-weight: bold;
+    }
+    
+    .cgp {
+        order: 1; /* Display CGP before name */
+    }
+</style>
+    <h1>Marks Details</h1>
+    <ul class="mark-list">
+        {% for mark in marks_details %}
+            <li class="mark-item">
+                <span class="student-name">{{ mark.student.name }}</span>
+                <span class="cgp">{{ mark.cgp }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endblock content %}

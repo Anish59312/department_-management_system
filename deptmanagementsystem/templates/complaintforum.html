@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% block content %}
     <title>Complaint Registration Forum</title>
     <style>
         body {
@@ -91,13 +89,17 @@
         .remove-button:hover {
             background-color: #d32f2f; /* Darker red on hover */
         }
+
+        #complaints a {
+            color: inherit; /* Inherit color from parent */
+            text-decoration: none; /* Remove underline */
+        }
     </style>
-</head>
-<body>
     <div class="container">
         <h1>Complaint Registration Forum</h1>
 
-        <form action="{% url 'add-complaint' %}" id="complainForm">
+        <form method="post" action="{% url 'add-complaint' %}" id="complainForm" >
+            {% csrf_token %}
             <label for="subject">Subject:</label>
             <input type="text" id="subject" name="subject" placeholder="Enter subject" required>
             <label for="complainText">Description:</label>
@@ -109,20 +111,19 @@
             <h2>Registered Complaints</h2>
             <ul id="complaints">
                 <!-- Example registered complaints -->
+                {% for complaint in complaints %}
                 <li class="complaint">
-                    Example complaint 1
-                    <button class="remove-button" onclick="removeComplaint(this.parentNode)">Remove</button>
+                    <a href="{% url 'complaint-details' complaint.id %}">{{complaint.subject}}</a>
+                    <button class="remove-button" onclick="redirectToDelete('{{ complaint.id }}')">Remove</button>
                 </li>
-                <li class="complaint">
-                    Example complaint 2
-                    <button class="remove-button" onclick="removeComplaint(this.parentNode)">Remove</button>
-                </li>
-                <li class="complaint">
-                     complaint 3
-                    <button class="remove-button" onclick="removeComplaint(this.parentNode)">Remove</button>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </div>
-</body>
-</html>
+
+    <script>
+        function redirectToDelete(complaintId) {
+            window.location.href = '/delete_complaint/' + complaintId;
+        }
+    </script>
+    {% endblock content %}

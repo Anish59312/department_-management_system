@@ -1,10 +1,7 @@
 <!-- forum_list.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block content %}
     <title>Forum List</title>
     <style>
         body {
@@ -46,8 +43,7 @@
             background-color: #cde7c4; /* Darker green background on hover */
         }
     </style>
-</head>
-<body>
+    
     <div class="container">
         <h1>Forum List</h1>
         <ul>
@@ -56,5 +52,5 @@
             {% endfor %}
         </ul>
     </div>
-</body>
-</html>
+    {% endblock content %}
+

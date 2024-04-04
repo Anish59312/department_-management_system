@@ -24,14 +24,15 @@ urlpatterns = [
     # path('forum/', forum_view),
     # path('article/', article_view),
     path('add_marks/', add_marks, name='add-marks'),
-    path('view_marks/', view_marks),
+    path('view_marks/', view_marks, name='view-marks'),
     path('home/', view_home, name='home'),
     path('forum_details/<int:forum_id> ', forum_details, name="forum-details"),
     path('forum_list/', forum_list, name='forum-list'),
     path('add_forum/', add_forum, name='add-forum'),
     path('submit_comment/<int:forum_id>', submit_comment, name='submit-comment'),
     path('add_student/', add_student, name='add-student'),
+    path('view_student/', view_student, name='view-student'),
     path('add_complaint/', add_complaint, name='add-complaint'),
-    path('view_student/', view_student),
-    
+    path('complaint_details/<int:complaint_id>', complaint_details, name='complaint-details'),
+    path('delete_complaint/<int:complaint_id>', delete_complaint, name='delete-complaint'),
 ]

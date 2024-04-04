@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Student</title>
+{% extends 'base.html' %}
+
+{% block content %}
+  <title>Add Student</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,8 +51,7 @@
             background-color: #005200; /* Dark green button background on hover */
         }
     </style>
-</head>
-<body>
+
     <h1>Add Student</h1>
     <form method="post">
         {% csrf_token %}
@@ -80,5 +77,5 @@
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
-</body>
-</html>
+
+    {% endblock content %}

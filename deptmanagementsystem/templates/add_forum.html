@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'base.html' %}
+
+{% block content %}
     <title>Add Forum</title>
     <style>
         body {
@@ -55,8 +55,7 @@
             overflow-y: hidden; */
         } 
     </style>
-</head>
-<body>
+
     <h2>Add Forum</h2>
     <div class="form-container">
         <form method="post">
@@ -68,6 +67,5 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-  
-</body>
-</html>
+    {% endblock content %}
+
