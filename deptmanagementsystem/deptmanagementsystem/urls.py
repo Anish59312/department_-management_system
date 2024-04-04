@@ -31,4 +31,7 @@ urlpatterns = [
     path('add_forum/', add_forum, name='add-forum'),
     path('submit_comment/<int:forum_id>', submit_comment, name='submit-comment'),
     path('add_student/', add_student, name='add-student'),
+    path('add_complaint/', add_complaint, name='add-complaint'),
+    path('view_student/', view_student),
+    
 ]

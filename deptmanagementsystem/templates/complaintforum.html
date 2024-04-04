@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Registration Forum</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFFFFF; /* White background */
+            color: #2E7D32; /* Dark green text */
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #81C784; /* Medium green container */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1, h2 {
+            color: #FFFFFF; /* White header text */
+            text-align: center;
+        }
+        
+        #complainForm, #complaintsList {
+            margin-top: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        textarea, input[type="text"] {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #2E7D32; /* Dark green border */
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        
+        #complaints {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .complaint {
+            background-color: #A5D6A7; /* Light green complaint box */
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between; /* Apply space-between to distribute contents */
+            align-items: center; /* Center items vertically */
+        }
+        
+        .timestamp {
+            font-size: 12px;
+            color: #2E7D32; /* Dark green timestamp */
+        }
+        
+        .remove-button {
+            background-color: #f44336; /* Red remove button */
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .remove-button:hover {
+            background-color: #d32f2f; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Complaint Registration Forum</h1>
+
+        <form action="{% url 'add-complaint' %}" id="complainForm">
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" placeholder="Enter subject" required>
+            <label for="complainText">Description:</label>
+            <textarea id="complainText" name="complaintText" placeholder="Type your complaint here..." required></textarea>
+            <button type="submit">Register Complaint</button>
+        </form>
+
+        <div id="complaintsList">
+            <h2>Registered Complaints</h2>
+            <ul id="complaints">
+                <!-- Example registered complaints -->
+                <li class="complaint">
+                    Example complaint 1
+                    <button class="remove-button" onclick="removeComplaint(this.parentNode)">Remove</button>
+                </li>
+                <li class="complaint">
+                    Example complaint 2
+                    <button class="remove-button" onclick="removeComplaint(this.parentNode)">Remove</button>
+                </li>
+                <li class="complaint">
+                     complaint 3
+                    <button class="remove-button" onclick="removeComplaint(this.parentNode)">Remove</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

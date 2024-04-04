@@ -1,7 +1,9 @@
-{% extends 'base.html' %}
 
-{% block content %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ forum.title }}</title>
     <style>
         body {
@@ -21,12 +23,12 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
-            color: #007f00; /* Dark green heading */
+            color: #00bcd4; /* Light cyan heading */
             text-align: center;
             margin-bottom: 20px;
         }
         h2 {
-            color: #007f00; /* Dark green heading */
+            color: #00bcd4; /* Light cyan heading */
             margin-top: 30px;
         }
         p {
@@ -34,7 +36,7 @@
             line-height: 1.6;
         }
         .comment {
-            background-color: #dfeeeb; /* Light green comment background */
+            background-color: #dfeeeb; /* Light cyan comment background */
             padding: 10px;
             border-radius: 8px;
             margin-top: 20px;
@@ -51,7 +53,7 @@
             margin-top: 20px;
         }
         #add_comment p {
-            color: #007f00; /* Dark green heading */
+            color: #00bcd4; /* Light cyan heading */
             font-weight: 600;
             margin-bottom: 2px;
         }
@@ -69,13 +71,13 @@
             border-radius: 10 0 0 10;
         }
         #add_comment form input[type="text"] :hover {
-            border: 1px solid #007f007a;
+            border: 1px solid #00bcd47a; /* Light cyan border on hover */
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
     #add_comment form button {
         flex: 1;
-        background-color: #007f00; /* Dark green button */
+        background-color: #00bcd4; /* Light cyan button */
         color: #fff; /* White text color */
         border: none;
         padding: 10px;
@@ -84,10 +86,12 @@
     }
 
     #add_comment form button:hover {
-        background-color: #005200; /* Darker green on hover */
+        background-color: #008ba3; /* Darker cyan on hover */
     }
 
     </style>
+</head>
+<body>
     <div class="container">
         <h1>{{ forum.header }}</h1>
         <p>{{ forum.content }}</p>
@@ -108,5 +112,5 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-
-{% endblock content %}
+</body>
+</html>

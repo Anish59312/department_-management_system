@@ -20,7 +20,9 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+        print("partially success" + "\n\n")
         if user is not None:
+             print("success")
              login(request, user)
              return redirect(view_home)
     return render(request, 'login.html') 
@@ -97,7 +99,6 @@ def add_forum(request):
             return redirect('forum-list')
     else:
         form = ForumForm()
-    
     return render(request, 'add_forum.html', {'form': form})
 
 def add_student(request):
@@ -118,5 +119,15 @@ def add_student(request):
     return render(request, 'add_student.html', {'form': form})
 
 
+def view_student(request):
+    student_details = Student.objects.all()
+    return render(request, 'view_student.html', {'students' : student_details})
 
 
+def add_complaint(request):
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        complaint_text = request.POST.get('complaintText')
+        complaint = Complaint()
+
+    return render(request, 'complaintforum.html')

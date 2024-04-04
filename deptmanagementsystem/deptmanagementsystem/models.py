@@ -75,3 +75,11 @@ class Marks(models.Model):
 
     def __str__(self):
         return f"CGP: {self.cgp}, Student: {self.student.name}"
+
+class Complaints(models.Model):
+    subject = models.CharField(max_length=200)
+    description = models.CharField(max_length=500)
+
+    def __str__(self):
+        return f"Subject: {self.subject}, Description: {self.description}" 
+
