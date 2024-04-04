@@ -26,6 +26,7 @@ def login_view(request):
              print("success")
              login(request, user)
              return redirect(view_home)
+        
     return render(request, 'login.html') 
 
 def view_home(request):
@@ -85,7 +86,7 @@ def add_marks(request):
                 marks, created = Marks.objects.get_or_create(student=student)
                 marks.cgp = marks_value_float  # Assign the floating-point value
                 marks.save()
-        return redirect('add-marks')
+        return redirect('view-marks')
     return render(request, 'add_marks.html', {'students': students})
 
 def view_marks(request):
@@ -114,7 +115,7 @@ def add_student(request):
             student = Student(name=name, description=description)
             student.save()
 
-            return redirect('home')
+            return redirect('view-student')
     else:
         form = StudentForm()
     return render(request, 'add_student.html', {'form': form})

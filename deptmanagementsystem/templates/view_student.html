@@ -1,8 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'base.html' %}
+
+{% block content %}
     <title>View Students</title>
     <style>
         body {
@@ -50,14 +48,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for student in students %}
+                {% for item in students %}
                 <tr>
-                    <td>{{ student.name }}</td>
-                    <td>{{ student.description }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-</body>
-</html>
+    {% endblock %}
