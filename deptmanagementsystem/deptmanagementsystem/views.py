@@ -96,7 +96,8 @@ def view_marks(request):
         marks_details = Marks.objects.all()
         return render(request, 'view_marks.html', {'marks_details' : marks_details})
     else:
-        marks_details = Marks.objects.get(pk = request.user.id)
+        student = Student.objects.get(name = request.user.username)
+        marks_details = Marks.objects.get(student = student)
         return render(request, 'view_marks.html', {'marks_details' : marks_details})
 
 def add_forum(request):
@@ -141,9 +142,6 @@ def add_complaint(request):
         subject = request.POST.get('subject')
         complaint_text = request.POST.get('complaintText')
         complaint = Complaints(subject=subject, description=complaint_text, user=request.user)
-        print("----\n\n")
-        print(complaint.user)
-        print("----\n\n")
         complaint.save()
         return redirect('add-complaint')
     all_complaints = Complaints.objects.all()
@@ -185,9 +183,33 @@ def register_user(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
         if form.is_valid():
-            print('\n\nworkign\n\n')
-            form.save() 
-            return redirect('home')
+            cleaned_data = form.cleaned_data
+            username = cleaned_data['username']
+            email = cleaned_data['email']
+            password = cleaned_data['password']
+            userType = cleaned_data['userType']
+
+            print("\n\n\-----")
+            print(userType)
+            user = User.objects.create_user(username = username, email=email, password=password, userType=userType)
+            user.save()
+            return redirect('user-list')
     else:
         form = UserForm()
     return render(request, 'register_admin.html', {'form': form})
+
+
+def view_users(request):
+    # Query users whose userType is not 'student'
+    users = User.objects.filter(userType__in=['prof', 'hod', 'clerk'])
+
+    # Pass the users queryset to the template for rendering
+    return render(request, 'user_list.html', {'users': users})
+
+
+def delete_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    if request.method == 'POST':
+        user.delete()
+        return redirect('user-list')  # Redirect to the user list page after deletion
+    return redirect('user-list')

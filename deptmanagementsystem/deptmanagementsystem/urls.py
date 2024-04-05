@@ -39,4 +39,7 @@ urlpatterns = [
     path('test/', test, name="test"),
     path('delete_student/<int:student_id>/', delete_student, name='delete_student'),
     path('register_user/', register_user, name="register-user"),
+    path('users/', view_users, name='user-list'),
+    path('delete/<int:user_id>/', delete_user, name='delete_user'),
+
 ]

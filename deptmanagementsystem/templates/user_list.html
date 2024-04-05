@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8f0; /* Light green background */
+            color: #333; /* Dark gray text color */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007f00; /* Dark green heading */
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd; /* Light gray border between items */
+        } 
+        .username {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .details {
+            font-size: 0.9em;
+            color: #555; /* Dark gray text for details */
+        }
+        .email-link {
+            color: #007f00; /* Dark green for email link */
+            text-decoration: none;
+        }
+        .email-link:hover {
+            text-decoration: underline;
+        }
+
+        .delete-form {
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .delete-button {
+            background-color: #dc3545; /* Red background for delete button */
+            color: #fff; /* White text color */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="container">
+        <h1>Admin List</h1>
+        <ul>
+            {% for user in users %}
+                <li>
+                    <span class="username">{{ user.username }}</span>
+                    <span class="details">({{ user.userType }})</span>
+                    <br>
+                    <a href="mailto:{{ user.email }}" class="email-link">{{ user.email }}</a>
+                    {% if request.user.userType == "hod" %}
+                    <form method="post" action="{% url 'delete_user' user.id %}" class="delete-form">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="delete-button">
+                    </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endblock %}
