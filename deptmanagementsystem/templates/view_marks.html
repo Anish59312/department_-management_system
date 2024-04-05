@@ -35,12 +35,29 @@
         font-weight: bold;
     }
     
+    .heading {
+        margin-bottom: 20px;
+        padding: 20px;
+        background-color: whitesmoke; /* Lighter green item background */
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: black;
+        font-weight: bolder;
+    }
     .cgp {
         order: 1; /* Display CGP before name */
     }
 </style>
-    <h1>Marks Details</h1>
-    <ul class="mark-list">
+    <h1>Result</h1>
+    
+    {% if request.user.userType != 'stud' %}
+    <ul class="header mark-list">
+        <li class="mark-item">
+            <span class="student-name">Name</span>
+            <span class="cgp">CPG</span>
+        </li>
         {% for mark in marks_details %}
             <li class="mark-item">
                 <span class="student-name">{{ mark.student.name }}</span>
@@ -48,4 +65,16 @@
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <ul class="mark-list">
+        <li class="mark-item heading">
+            <span class="student-name">Name</span>
+            <span class="cgp">CPG</span>
+        </li>
+            <li class="mark-item">
+                <span class="student-name">{{ marks_details.student.name }}</span>
+                <span class="cgp">{{ marks_details.cgp }}</span>
+            </li>
+    </ul>
+    {% endif %}
     {% endblock content %}

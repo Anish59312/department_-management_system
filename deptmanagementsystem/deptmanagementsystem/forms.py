@@ -1,5 +1,5 @@
 from django import forms
-from .models import Forum, Marks, Student
+from .models import Forum, Marks, Student, User
 
 class LoginForm(forms.Form):
     usrname = forms.CharField(max_length = 20)
@@ -29,3 +29,9 @@ class StudentForm(forms.Form):
 
     name = forms.CharField(max_length=20)
     description = forms.CharField(max_length=100)
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User  # Use your custom User model if needed
+        fields = ['username', 'email', 'password', 'userType']

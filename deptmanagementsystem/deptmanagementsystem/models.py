@@ -11,6 +11,7 @@ class User(AbstractUser):
     ]
     userType = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default=USER_TYPE_CHOICES[1][1]) #default is student
 
+
 class Student(models.Model):
     name = models.CharField(max_length=20) 
     batchId = models.IntegerField(null=True) #batchno(1,2) + semisternumber(1-8)
@@ -20,10 +21,15 @@ class Student(models.Model):
     def __str__(self):
         return self.name
 
+class Marks(models.Model):
+    cgp = models.FloatField(default=0)
+    student = models.OneToOneField(Student, on_delete=models.CASCADE, null=True )
+
+    def __str__(self):
+        return f"CGP: {self.cgp}"
 
 
 class Professor(models.Model):
-    professsorId = models.CharField(max_length=20)
     name = models.CharField(max_length=20)
 
 class DailySchedule(models.Model):
@@ -69,17 +75,12 @@ class Forum(models.Model):
 #     def __str__(self):
 #         return self.title
     
-class Marks(models.Model):
-    cgp = models.FloatField(default=0)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE )
 
-    def __str__(self):
-        return f"CGP: {self.cgp}, Student: {self.student.name}"
 
 class Complaints(models.Model):
     subject = models.CharField(max_length=200)
     description = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"Subject: {self.subject}, Description: {self.description}" 
-

@@ -36,4 +36,7 @@ urlpatterns = [
     path('complaint_details/<int:complaint_id>', complaint_details, name='complaint-details'),
     path('delete_complaint/<int:complaint_id>', delete_complaint, name='delete-complaint'),
     path('logout/', logout_view, name='logout'),
+    path('test/', test, name="test"),
+    path('delete_student/<int:student_id>/', delete_student, name='delete_student'),
+    path('register_user/', register_user, name="register-user"),
 ]

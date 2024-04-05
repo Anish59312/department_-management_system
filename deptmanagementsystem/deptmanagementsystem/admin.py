@@ -9,7 +9,4 @@ admin.site.register(Complaints)
 
 @admin.register(Marks)
 class MarksAdmin(admin.ModelAdmin):
-    list_display = ['get_student_name' , 'cgp']
-
-    def get_student_name(self, obj):
-        return obj.student.name
+    list_display = ['cgp']

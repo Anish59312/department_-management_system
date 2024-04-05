@@ -1,1 +1,51 @@
-working partially
+<!-- complaintdetails.html -->
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- Place this CSS in your CSS file or within a <style> tag in your template -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f8f0; /* Light green background */
+        color: #333; /* Dark gray text color */
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff; /* White background */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #007f00; /* Dark green heading */
+        text-align: center;
+    }
+    .complaint-details {
+        margin-top: 20px;
+    }
+    .complaint-item {
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: #d3e0dc; /* Lighter green item background */
+        border-radius: 5px;
+    }
+</style>
+
+    <div class="container">
+        <h1>Complaint Details</h1>
+        <div class="complaint-details">
+            <div class="complaint-item">
+                <strong>Subject:</strong> {{ complaint.subject }}
+            </div>
+            <div class="complaint-item">
+                <strong>Description:</strong> {{ complaint.description }}
+            </div>
+            <div class="complaint-item">
+                <strong>Made by</strong> {{ complaint.user.username }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

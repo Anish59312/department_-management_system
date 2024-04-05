@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Complaints, Forum, Marks, Student
+from .models import Complaints, Forum, Marks, Student, User
 from .forms import CommentForm, ForumForm, MarksForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -77,6 +77,7 @@ def submit_comment(request, forum_id):
 
 def add_marks(request):
     students = Student.objects.all()
+    marks = Marks.objects.all()
     if request.method == 'POST':
         for student in students:
             marks_value = request.POST.get(f"marks_{student.id}")
@@ -87,11 +88,16 @@ def add_marks(request):
                 marks.cgp = marks_value_float  # Assign the floating-point value
                 marks.save()
         return redirect('view-marks')
-    return render(request, 'add_marks.html', {'students': students})
+    return render(request, 'add_marks.html', {'students': students, 'marks' : marks})
 
 def view_marks(request):
-    marks_details = Marks.objects.all()
-    return render(request, 'view_marks.html', {'marks_details' : marks_details})
+
+    if request.user.userType != 'stud' :
+        marks_details = Marks.objects.all()
+        return render(request, 'view_marks.html', {'marks_details' : marks_details})
+    else:
+        marks_details = Marks.objects.get(pk = request.user.id)
+        return render(request, 'view_marks.html', {'marks_details' : marks_details})
 
 def add_forum(request):
     if request.method == 'POST':
@@ -114,7 +120,10 @@ def add_student(request):
             description = form.cleaned_data['description']
             student = Student(name=name, description=description)
             student.save()
-
+            obj = Marks(student=student)
+            obj.save()
+            user = User.objects.create_user(username = name, email='', password=name, userType="stud")
+            user.save()
             return redirect('view-student')
     else:
         form = StudentForm()
@@ -131,15 +140,18 @@ def add_complaint(request):
         print('working till here\n\n\n')
         subject = request.POST.get('subject')
         complaint_text = request.POST.get('complaintText')
-        complaint = Complaints(subject=subject, description=complaint_text)
+        complaint = Complaints(subject=subject, description=complaint_text, user=request.user)
+        print("----\n\n")
+        print(complaint.user)
+        print("----\n\n")
         complaint.save()
         return redirect('add-complaint')
     all_complaints = Complaints.objects.all()
     return render(request, 'complaintforum.html', {'complaints' : all_complaints})
 
 def complaint_details(request, complaint_id):
-    print(complaint_id)
-    return render(request, 'complaintdetails.html')
+    complaint = get_object_or_404(Complaints, pk=complaint_id)
+    return render(request, 'complaintdetails.html', {'complaint': complaint})
 
 def delete_complaint(request, complaint_id):
     complaint = get_object_or_404(Complaints, pk=complaint_id)
@@ -150,3 +162,32 @@ def delete_complaint(request, complaint_id):
 def logout_view(request):
     logout(request)
     return redirect('login_view')
+
+def test(request):
+    return HttpResponse('success')
+
+
+def delete_student(request, student_id):
+    student = get_object_or_404(Student, pk=student_id)
+    user = get_object_or_404(User,username = student.name)
+    marks = get_object_or_404(Marks,student = student)
+    if request.method == 'POST':
+        student.delete()
+        user.delete()
+        marks.delete()
+        return redirect('view-student') 
+    return redirect('view-student')
+
+from django.shortcuts import render
+from .forms import UserForm
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            print('\n\nworkign\n\n')
+            form.save() 
+            return redirect('home')
+    else:
+        form = UserForm()
+    return render(request, 'register_admin.html', {'form': form})

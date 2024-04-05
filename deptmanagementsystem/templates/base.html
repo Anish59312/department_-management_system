@@ -46,6 +46,11 @@
                   <a class="nav-link" href="{% url 'view-student' %}">View All Students</a>
                 </li>
                 {% endif %}
+                {% if request.user.userType == "hod" %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'register-user' %}">Add Admin</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                 </li>

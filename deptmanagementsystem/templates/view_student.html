@@ -3,7 +3,8 @@
 {% block content %}
     <title>View Students</title>
     <style>
-        body {
+
+body {
             font-family: Arial, sans-serif;
             background-color: #f0f8f0; /* Light green background */
             color: #333; /* Dark gray text color */
@@ -35,16 +36,26 @@
         th {
             background-color: #d0f8d0; /* Light green header background */
         }
+        
+        .delete-button {
+            background-color: #ff3333; /* Red background */
+            color: #fff; /* White text color */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Student Details</h1>
         <table>
-            <thead>                                                    
+            <thead>
                 <tr>
                     <th>Name</th>
                     <th>Details</th>
+                    <th>Action</th> <!-- Added header for the delete button -->
                 </tr>
             </thead>
             <tbody>
@@ -52,9 +63,17 @@
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
+                    <td>
+                        {% if request.user.userType == 'hod' or request.user.userType == 'clerk' %}
+                        <form action="{% url 'delete_student' item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="delete-button">Delete</button>
+                        </form>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    {% endblock %}
+{% endblock %}

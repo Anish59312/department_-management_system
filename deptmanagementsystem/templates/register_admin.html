@@ -1,0 +1,85 @@
+<!-- myform_template.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8f0; /* Light green background */
+            color: #333; /* Dark gray text color */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007f00; /* Dark green heading */
+            text-align: center;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #007f00; /* Dark green submit button */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #005800; /* Dark green hover color */
+        }
+    </style>
+
+    <div class="container">
+        <h1>Add Admin</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="id_email">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password:</label>
+                {{ form.password }}
+            </div>
+            <div class="form-group">
+                <label for="id_userType">User Type:</label>
+                <select id="id_userType" name="userType" class="form-control">
+                    <option value="" {% if not form.userType.value %}selected{% endif %}>Select User Type</option>
+                    {% for choice in form.userType.field.choices %}
+                        <option value="{{ choice.0 }}" {% if form.userType.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}
