@@ -19,10 +19,8 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', login_view, name='login_view'),
-    # path('forum/', forum_view),
-    # path('article/', article_view),
+    # path('admin/', admin.site.urls),
+    path('', login_view, name='login_view'),
     path('add_marks/', add_marks, name='add-marks'),
     path('view_marks/', view_marks, name='view-marks'),
     path('home/', view_home, name='home'),
