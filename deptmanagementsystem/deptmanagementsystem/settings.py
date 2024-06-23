@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ijw2ced9ik&os5s5i@1zz=-o(kx7&(*&*o61m*xfn39=&bm^yc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://department-management-system-mu.vercel.app/']
 
 # Application definition
 
@@ -131,3 +131,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # Add other authentication backends if necessary
 ]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

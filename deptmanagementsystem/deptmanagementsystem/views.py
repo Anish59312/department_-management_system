@@ -6,15 +6,15 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth import logout
-# def registration_view(request):
-#     if request.method == 'POST':
-#         form = RegistrationForm(request.POST)
-#         if form.is_valid():
-#             data = form.cleaned_data
-#             return render(request, 'details.html', {'data': data})
-#     else:
-#         form = RegistrationForm()
-#     return render(request, 'registration_form.html', {'form': form})
+
+import cv2
+from pyzbar.pyzbar import decode
+from django.core.files.storage import FileSystemStorage
+from django.shortcuts import render
+from django.http import JsonResponse
+import base64
+from PIL import Image
+from io import BytesIO
 
 def login_view(request):
     if(request.method == 'POST'):
@@ -28,6 +28,48 @@ def login_view(request):
              return redirect(view_home)
         
     return render(request, 'login.html') 
+
+
+def decode_barcodes(image_path):
+    image = cv2.imread(image_path)
+    barcodes = decode(image)
+
+    if not barcodes:
+        return redirect(login_view)
+    
+    for barcode in barcodes:
+        return barcode.data.decode('utf-8')
+        
+
+def submit_image(request):
+    if request.method == 'POST':
+        image_data = request.POST.get('imageData')
+        if image_data:
+            # Remove the data:image/png;base64, part
+            image_data = image_data.split(',')[1]
+            image_data = base64.b64decode(image_data)
+
+            image = Image.open(BytesIO(image_data))
+            image.save('captured_image.png')
+
+            barcodeData = decode_barcodes('captured_image.png')
+
+            print(barcodeData)
+
+            temp = barcodeData.split('-', 1)
+            username = temp[0]
+            password = temp[1]
+          
+            user = authenticate(request, username=username, password=password)
+        print("partially success" + "\n\n")
+        if user is not None:
+             print("success")
+             login(request, user)
+             return redirect(view_home)
+
+            # return HttpResponse(barcodeData)
+
+    return render(request, 'login.html')
 
 def view_home(request):
     student_name = request.user.username
@@ -57,7 +99,6 @@ def forum_details(request, forum_id):
      form = CommentForm()
      return render(request, 'forum_details.html', {'forum' : forum , 'form' : form})
 
-
 def submit_comment(request, forum_id):
     forum = Forum.objects.get(pk=forum_id)
     if request.method == 'POST':
@@ -68,12 +109,6 @@ def submit_comment(request, forum_id):
             return redirect('forum-details', forum_id=forum_id )
         
     return redirect('forum-details', forum_id=forum_id)
-
-
-# def article_view(request):
-#     articles = Article.objects.all()
-#     print(articles)
-#     return render(request, 'article.html', {'articles' : articles})
 
 def add_marks(request):
     students = Student.objects.all()

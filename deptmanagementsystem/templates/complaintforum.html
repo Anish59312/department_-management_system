@@ -114,7 +114,7 @@
                 {% for complaint in complaints %}
                 <li class="complaint">
                     <a href="{% url 'complaint-details' complaint.id %}">{{complaint.subject}}</a>
-                    {% if request.user.userType == 'hod' or request.user.userType == 'clerk' %}
+                    {% if request.user.userType == 'hod' %}
                     <button class="remove-button" onclick="redirectToDelete('{{ complaint.id }}')">Remove</button>
                     {% endif %}
                 </li>

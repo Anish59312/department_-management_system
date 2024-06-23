@@ -99,7 +99,11 @@
   <div class="intro">
   <div id="About">
     <div class="container">
-<h1 id="text" >Hello {{ student_name }}!</h1>
+      {% if student_name == 'hod' %}
+      <h1 id="text" >Hello, Admin</h1>
+      {% else %}
+      <h1 id="text" >Hello {{ student_name }}!</h1>
+      {% endif %}
 </div>
 </div>
 </div>
